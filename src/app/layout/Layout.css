@@ -1,0 +1,103 @@
+.app__logo {
+  height: 5rem;
+  pointer-events: none;
+  margin: 1rem 0;
+}
+
+.app__header {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.app__link {
+  color: #61dafb;
+}
+
+.app__navigation {
+  width: 90rem;
+  height: 9rem;
+  flex-shrink: 0;
+}
+
+.app__menu {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  list-style: none;
+  padding-left: 6.25em;
+}
+
+.app__menu-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.app__name_app {
+  color: #1a1b1d;
+  font-family: Nunito;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.5rem;
+  padding-top: 3.5rem;
+  padding-right: 10rem;
+}
+
+.app__menu-link:focus {
+  outline-color: #9ebeff;
+}
+
+.app__menu-link:hover {
+  color: #9ebeff;
+}
+
+.app__main {
+  padding: 2rem 1rem;
+}
+.search {
+  margin-top: 3.5rem;
+  margin-right: 2.4rem;
+  width: 24.5rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  border: 1px solid #e0e2ea;
+  background: #fff;
+  color: #1a1b1d;
+  font-family: Nunito;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1rem;
+}
+
+.check {
+  color: #4460f7;
+  width: 2rem;
+  height: 3rem;
+  margin-left: 0.25rem;
+}
+
+.promo__and__active {
+  color: #1a1b1d;
+  font-family: Nunito;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2rem;
+  margin-top: 4rem;
+  margin-right: 4rem;
+}
