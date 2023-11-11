@@ -1,0 +1,23 @@
+.labelCard {
+  color: #1a1b1d;
+  font-family: Nunito;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1rem;
+  margin: 0.5rem;
+}
+
+.describe {
+  color: #9194a5;
+  font-family: Nunito;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 200;
+  line-height: 1rem;
+}
+
+.star {
+  width: 1rem;
+  height: 1rem;
+}

@@ -10,15 +10,24 @@ export const Layout = () => {
         <ul className="app__menu">
           <li className="app__name_app">join.tsh.io</li>
           <li>
-            <input type="text" className="search" defaultValue={'Search'}></input>
+            <input type="text" placeholder="Wyszukaj..." className="search-container" />
           </li>
           <li className="promo__and__active">
-            <input type="checkbox" className="check"></input>
-            Active
+            <label className="checkbox-label">
+              <input type="checkbox" className="check" />
+              Active
+            </label>
           </li>
           <li className="promo__and__active">
-            <input type="checkbox" className="check"></input>
-            <a className="promo__and__active"> Promo</a>
+            <label className="checkbox-label">
+              <input type="checkbox" className="check" />
+              Promo
+            </label>
+          </li>
+          <li className="login__button">
+            <button type="button" className="blue-button">
+              Login
+            </button>
           </li>
         </ul>
       </nav>
