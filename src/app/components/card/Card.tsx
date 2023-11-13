@@ -9,6 +9,7 @@ import Typography from '@mui/joy/Typography';
 import starFull from 'assets/images/starFull.png';
 import starEmpty from 'assets/images/starEmpty.png';
 import './Card.css';
+import { useModal } from 'context/viewType/modalContext';
 
 type Product = {
   name: string;
@@ -18,7 +19,6 @@ type Product = {
   promo: boolean;
   active: boolean;
   id: string;
-  modalOpen: () => void;
 };
 
 type ProductCardProps = {
@@ -26,6 +26,7 @@ type ProductCardProps = {
 };
 
 export const ShopCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { handleButtonClick } = useModal();
   const RenderStars = () => {
     const stars = [];
     const rating = product.rating;
@@ -42,6 +43,7 @@ export const ShopCard: React.FC<ProductCardProps> = ({ product }) => {
   };
   return (
     <Card
+      className="card"
       sx={{
         width: '18rem',
         height: '25rem',
@@ -69,7 +71,11 @@ export const ShopCard: React.FC<ProductCardProps> = ({ product }) => {
         <CardContent orientation="horizontal" sx={{ marginLeft: '0.7rem', marginTop: '1.5rem' }}>
           <RenderStars />
         </CardContent>
-        <Button color="primary" sx={{ width: '100%', marginTop: '1rem' }} onClick={() => product.modalOpen}>
+        <Button
+          color="primary"
+          sx={{ width: '100%', marginTop: '1rem' }}
+          onClick={() => handleButtonClick(product.name, product.description, product.image)}
+        >
           Show details
         </Button>
       </CardContent>

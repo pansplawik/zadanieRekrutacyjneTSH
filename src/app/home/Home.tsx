@@ -68,22 +68,6 @@ export const Home = () => {
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const [modalInfo, setModalInfo] = useState({
-    name: '',
-    description: '',
-    image: '',
-  });
-
-  const openAndSetModal = ({ name, description, image }) => {
-    setModal(true);
-    console.log(modal);
-    setModalInfo({
-      name,
-      description,
-      image,
-    });
-  };
-  const [modal, setModal] = useState(false);
   return (
     <>
       <div className="shop-container">
@@ -131,7 +115,6 @@ export const Home = () => {
                 active: product.active,
                 id: product.id,
               }}
-              modalOpen={openAndSetModal}
             />
           ))
         )}
@@ -143,6 +126,7 @@ export const Home = () => {
           </Stack>
         )}
       </div>
+      <Modals />
     </>
   );
 };

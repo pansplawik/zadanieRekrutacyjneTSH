@@ -3,3 +3,12 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.card {
+  width: 45rem;
+  height: 25rem;
+  background-color: white;
+  border: none;
+  margin: 4rem;
+  align-items: center; /* Assuming this is intended for a flex container */
+}
