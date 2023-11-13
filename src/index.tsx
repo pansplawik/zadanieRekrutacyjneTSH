@@ -7,6 +7,7 @@ import 'assets/styles/main.css';
 
 import { AppProviders } from 'providers/AppProviders';
 import { AppRoutes } from 'routing/AppRoutes';
+import { LoginProvider } from 'context/viewType/userContext';
 
 const openReactQueryDevtools = import.meta.env.DEV;
 
@@ -17,8 +18,10 @@ if (import.meta.env.VITE_SENTRY_DSN) {
 const container = document.getElementById('root');
 const root = createRoot(container as Element);
 root.render(
-  <AppProviders>
-    <AppRoutes />
-    {openReactQueryDevtools && <ReactQueryDevtools initialIsOpen={false} />}
-  </AppProviders>,
+  <LoginProvider>
+    <AppProviders>
+      <AppRoutes />
+      {openReactQueryDevtools && <ReactQueryDevtools initialIsOpen={false} />}
+    </AppProviders>
+  </LoginProvider>,
 );

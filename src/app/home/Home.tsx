@@ -1,14 +1,16 @@
 import './Home.css';
 import { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
-import { Stack } from '@mui/material';
-
+import { Stack, Typography } from '@mui/material';
+import Card from '@mui/joy/Card';
 import { ShopCard } from 'app/components/card/Card';
 import { Modals } from 'app/components/modal/Modal';
-
+import { useLogin } from 'context/viewType/userContext';
+import Empty from './Empty.png';
+import Avatar from './Avatar.png';
 export const Home = () => {
+  const { login } = useLogin();
   const [products, setProducts] = useState<Product[]>([]);
-
   const chunkArray = (array) => {
     const groups = [];
     const totalGroups = 7;
@@ -29,31 +31,29 @@ export const Home = () => {
   const fetchData = async () => {
     try {
       let allProducts: Product[] = [];
-      for (let currentPage = 1; currentPage <= 5; currentPage++) {
-        const response = await fetch(
-          `http://jointshfrontendapi-env-3.eba-z7bd6rn6.eu-west-1.elasticbeanstalk.com/products?page=${currentPage}`,
-          {
-            method: 'GET',
-            mode: 'cors',
-          },
-        );
+      const response = await fetch(
+        `http://jointshfrontendapi-env-3.eba-z7bd6rn6.eu-west-1.elasticbeanstalk.com/products?limit=100`,
+        {
+          method: 'GET',
+          mode: 'cors',
+        },
+      );
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-
-        const productsArray: Product[] = data.items.map((item: any) => ({
-          name: item.name || '',
-          description: item.description || '',
-          rating: item.rating || 0,
-          image: item.image || '',
-          promo: item.promo || false,
-        }));
-
-        allProducts = [...allProducts, ...productsArray];
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+
+      const data = await response.json();
+
+      const productsArray: Product[] = data.items.map((item: any) => ({
+        name: item.name || '',
+        description: item.description || '',
+        rating: item.rating || 0,
+        image: item.image || '',
+        promo: item.promo || false,
+      }));
+
+      allProducts = [...allProducts, ...productsArray];
       setProducts(allProducts);
       const chunkedProducts = chunkArray(allProducts);
       setProducts(chunkedProducts);
@@ -68,20 +68,57 @@ export const Home = () => {
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const [modalOpen, setModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({
-    name: null,
-    describe: null,
-    image: null,
+    name: '',
+    description: '',
+    image: '',
   });
 
-  const openAndSetModal = () => {
-    setModalOpen(true);
+  const openAndSetModal = ({ name, description, image }) => {
+    setModal(true);
+    console.log(modal);
+    setModalInfo({
+      name,
+      description,
+      image,
+    });
   };
+  const [modal, setModal] = useState(false);
   return (
     <>
       <div className="shop-container">
-        {products.length > 0 &&
+        {login ? (
+          <Card
+            sx={{
+              width: '45rem',
+              height: '25rem',
+              backgroundColor: 'white',
+              border: 'None',
+              margin: '4rem',
+              alignItems: 'center',
+            }}
+          >
+            <img
+              src={Empty}
+              loading="lazy"
+              alt=""
+              style={{ maxHeight: '3.5rem', maxWidth: '3.5rem', padding: '5rem' }}
+            />
+            <Typography
+              style={{
+                textAlign: 'center',
+                fontSize: '1.125rem',
+                fontStyle: 'normal',
+                fontWeight: 600,
+                lineHeight: '1rem',
+              }}
+            >
+              Ooops… It’s empty he
+            </Typography>
+            <Typography className="describe">There are no product</Typography>
+          </Card>
+        ) : (
+          products.length > 0 &&
           products[page].map((product: Product) => (
             <ShopCard
               key={product.id}
@@ -93,25 +130,19 @@ export const Home = () => {
                 promo: product.promo,
                 active: product.active,
                 id: product.id,
-                modalOpen: () => openAndSetModal(),
               }}
+              modalOpen={openAndSetModal}
             />
-          ))}
+          ))
+        )}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-        <Stack spacing={3}>
-          <Pagination count={6} defaultPage={page} showFirstButton showLastButton onChange={handleChange} />
-        </Stack>
+        {!login && (
+          <Stack spacing={3}>
+            <Pagination count={6} defaultPage={page} showFirstButton showLastButton onChange={handleChange} />
+          </Stack>
+        )}
       </div>
-      <Modals
-        product={{
-          open: modalOpen,
-          description: modalInfo.describe || '', // Using the nullish coalescing operator to provide a default value
-          name: modalInfo.name || '',
-          image: modalInfo.image || '',
-          handleClose: () => setModalOpen(false),
-        }}
-      />
     </>
   );
 };
